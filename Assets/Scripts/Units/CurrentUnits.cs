@@ -17,6 +17,17 @@ public class CurrentUnits : MonoBehaviour
         
     }
 
+
+    //public class CurrentHealer : Unit
+    //{
+        //public CurrentHealer()
+        //{
+            
+        
+        //}
+    
+    //}
+
     /*
 
 
@@ -33,7 +44,7 @@ public class CurrentUnits : MonoBehaviour
     public int damageUpgradeAmount = 5;
     public float speedUpgradeAmount = 0.5f;
     public int rangeUpgradeAmount = 3;
-
+    
 
     class Healer : Unit
     {

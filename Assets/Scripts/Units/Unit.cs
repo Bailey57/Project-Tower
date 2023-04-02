@@ -92,11 +92,38 @@ public class Unit : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
 
-        //Debug.Log("Trigger entered");
+        Debug.Log("Trigger entered");
+
 
         if (attackTarget == null) 
         {
-            attackTarget = other.gameObject;
+            Debug.Log("Passed 1");
+            if ((other.gameObject.GetComponent("Tower") as Tower) != null)
+            {
+                Debug.Log("Passed 2");
+                if ((other.gameObject.GetComponent("Tower") as Tower).faction != factionNum) 
+                {
+                    Debug.Log("Passed 3");
+                    attackTarget = other.gameObject;
+
+                }
+               
+
+
+            }
+
+            else if ((other.gameObject.GetComponent("Unit") as Unit) != null)
+            {
+
+                
+                if ((other.gameObject.GetComponent("Unit") as Unit).factionNum != factionNum)
+                {
+                    attackTarget = other.gameObject;
+
+                }
+
+            }
+            
         }
         
     }
@@ -161,18 +188,30 @@ public class Unit : MonoBehaviour
 
         while (true)
         {
-            Debug.Log("Move Code reached");
-            //left
-            //transform.position = new Vector3(-1f, 0f, 0f);
+            if (attackTarget == null)
+            {
+                //Debug.Log("Move Code reached");
+                //left
+                //transform.position = new Vector3(-1f, 0f, 0f);
 
 
-            //rb.MovePosition(new Vector2(inGameUnit.transform.position.x + movementSpeed * Time.deltaTime, 0f));
-            rb.velocity = new Vector2(movementSpeed * Time.fixedDeltaTime, 0f);
+                //rb.MovePosition(new Vector2(inGameUnit.transform.position.x + movementSpeed * Time.deltaTime, 0f));
+                rb.velocity = new Vector2(movementSpeed * Time.fixedDeltaTime, 0f);
 
-            //inGameUnit.transform.Translate(movementSpeed * Time.deltaTime, 0f, 0f);
+                //inGameUnit.transform.Translate(movementSpeed * Time.deltaTime, 0f, 0f);
 
-            //inGameUnit.transform.position = new Vector3(inGameUnit.transform.position.x + movementSpeed / 100, 0f, 0f);
-            yield return new WaitForSeconds(1f);//moveSpeed
+                //inGameUnit.transform.position = new Vector3(inGameUnit.transform.position.x + movementSpeed / 100, 0f, 0f);
+                yield return new WaitForSeconds(1f);//moveSpeed
+
+            }
+            else 
+            {
+
+                rb.velocity = new Vector2(0f, 0f);
+                yield return new WaitForSeconds(1f);
+
+            }
+            
         }
     }
 

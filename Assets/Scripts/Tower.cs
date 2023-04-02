@@ -16,6 +16,10 @@ public class Tower : MonoBehaviour
         
     }
 
+    [SerializeField] public GameObject inGameTower;
+
 
     [SerializeField] public float health;
+
+    [SerializeField] public int faction;
 }
