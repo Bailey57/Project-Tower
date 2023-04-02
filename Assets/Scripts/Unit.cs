@@ -57,10 +57,32 @@ public class Unit : MonoBehaviour
     
     }
 
-    public void GetTarget()
+    IEnumerator AttackTarget()
     {
-        if (attackTarget)
+        while (true) 
         {
+
+            if (attackTarget != null)
+            {
+                if ((attackTarget.gameObject.GetComponent("Tower") as Tower) != null)
+                {
+                    (attackTarget.gameObject.GetComponent("Tower") as Tower).health -= damagePerHit;
+
+
+                }
+                else if ((attackTarget.gameObject.GetComponent("Unit") as Unit) != null)
+                {
+
+                    (attackTarget.gameObject.GetComponent("Unit") as Unit).health -= damagePerHit;
+
+
+                }
+
+
+            }
+
+
+            yield return new WaitForSeconds(1f);
 
         }
 
@@ -74,7 +96,7 @@ public class Unit : MonoBehaviour
 
         if (attackTarget == null) 
         {
-            //attackTarget = other.gameObject;
+            attackTarget = other.gameObject;
         }
         
     }
@@ -86,31 +108,7 @@ public class Unit : MonoBehaviour
     }
 
 
-    //IEnumerator
-    IEnumerator AttackTarget()
-    {
-        while (true) 
-        {
-            
-            if (attackTarget != null) 
-            {
-                //take away the targets health
 
-
-                //play animation
-
-            }
-
-
-
-
-            yield return new WaitForSeconds(1);
-        }
-        
-        
-
-
-    }
 
     public float GetDistanceToTarget()
     {

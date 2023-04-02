@@ -15,4 +15,7 @@ public class Tower : MonoBehaviour
     {
         
     }
+
+
+    [SerializeField] public float health;
 }
