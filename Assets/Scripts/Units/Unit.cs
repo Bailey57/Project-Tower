@@ -9,6 +9,8 @@ public class Unit : MonoBehaviour
     {
         //StartCoroutine(Move());
         StartCoroutine(Move2());
+        StartCoroutine(AttackTarget());
+        
         //StartCoroutine(AttackTarget());
 
     }
@@ -16,7 +18,8 @@ public class Unit : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        DeathCheck();
+
     }
 
 
@@ -55,6 +58,18 @@ public class Unit : MonoBehaviour
         this.attackRange = attackRange;
         this.factionNum = factionNum;
     
+    }
+
+
+    public void DeathCheck() 
+    {
+        if (health <= 0)
+        {
+            inGameUnit.SetActive(false);
+            Destroy(inGameUnit);
+
+        }
+
     }
 
     IEnumerator AttackTarget()
@@ -190,28 +205,39 @@ public class Unit : MonoBehaviour
         {
             if (attackTarget == null)
             {
-                //Debug.Log("Move Code reached");
-                //left
-                //transform.position = new Vector3(-1f, 0f, 0f);
+                if (factionNum == 0)
+                {
+                    //Debug.Log("Move Code reached");
+                    //left
+                    //transform.position = new Vector3(-1f, 0f, 0f);
 
 
-                //rb.MovePosition(new Vector2(inGameUnit.transform.position.x + movementSpeed * Time.deltaTime, 0f));
-                rb.velocity = new Vector2(movementSpeed * Time.fixedDeltaTime, 0f);
+                    //rb.MovePosition(new Vector2(inGameUnit.transform.position.x + movementSpeed * Time.deltaTime, 0f));
+                    rb.velocity = new Vector2(movementSpeed * Time.fixedDeltaTime, 0f);
 
-                //inGameUnit.transform.Translate(movementSpeed * Time.deltaTime, 0f, 0f);
+                    //inGameUnit.transform.Translate(movementSpeed * Time.deltaTime, 0f, 0f);
 
-                //inGameUnit.transform.position = new Vector3(inGameUnit.transform.position.x + movementSpeed / 100, 0f, 0f);
-                yield return new WaitForSeconds(1f);//moveSpeed
+                    //inGameUnit.transform.position = new Vector3(inGameUnit.transform.position.x + movementSpeed / 100, 0f, 0f);
+
+
+                }
+                else 
+                {
+                    rb.velocity = new Vector2(-1 * movementSpeed * Time.fixedDeltaTime, 0f);
+
+                }
+                
 
             }
             else 
             {
 
                 rb.velocity = new Vector2(0f, 0f);
-                yield return new WaitForSeconds(1f);
+                
 
             }
-            
+            yield return new WaitForSeconds(1f);
+
         }
     }
 

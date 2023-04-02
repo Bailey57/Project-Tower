@@ -13,7 +13,9 @@ public class Tower : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        DeathCheck();
+
+
     }
 
     [SerializeField] public GameObject inGameTower;
@@ -22,4 +24,16 @@ public class Tower : MonoBehaviour
     [SerializeField] public float health;
 
     [SerializeField] public int faction;
+
+
+    public void DeathCheck()
+    {
+        if (health <= 0)
+        {
+            inGameTower.SetActive(false);
+            Destroy(inGameTower);
+
+        }
+
+    }
 }
