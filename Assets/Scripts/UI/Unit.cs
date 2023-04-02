@@ -7,8 +7,10 @@ public class Unit : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //StartCoroutine();
-        
+        //StartCoroutine(Move());
+        StartCoroutine(Move2());
+        //StartCoroutine(AttackTarget());
+
     }
 
     // Update is called once per frame
@@ -20,10 +22,13 @@ public class Unit : MonoBehaviour
 
 
 
-    [SerializeField] public GameObject gameObject;
+    [SerializeField] public GameObject inGameUnit;
 
     [SerializeField] public GameObject attackTarget;
 
+    [SerializeField] public Rigidbody2D rb;
+
+    [SerializeField] public BoxCollider2D collider;
 
 
     [SerializeField] public float health;
@@ -69,7 +74,7 @@ public class Unit : MonoBehaviour
 
         if (attackTarget == null) 
         {
-            attackTarget = other.gameObject;
+            //attackTarget = other.gameObject;
         }
         
     }
@@ -82,9 +87,28 @@ public class Unit : MonoBehaviour
 
 
     //IEnumerator
-    public void AttackTarget()
+    IEnumerator AttackTarget()
     {
-        //take away the targets health
+        while (true) 
+        {
+            
+            if (attackTarget != null) 
+            {
+                //take away the targets health
+
+
+                //play animation
+
+            }
+
+
+
+
+            yield return new WaitForSeconds(1);
+        }
+        
+        
+
 
     }
 
@@ -118,19 +142,44 @@ public class Unit : MonoBehaviour
     }
 
 
-    public void Move()
+    IEnumerator Move()
     {
-        //left
-        transform.position = new Vector3(-1f, 0f, 0f);
+        
+        while (true) 
+        {
+            Debug.Log("Move Code reached");
+            //left
+            //transform.position = new Vector3(-1f, 0f, 0f);
 
-        //right
-        transform.position = new Vector3(1f, 0f, 0f);
-
-
+            //right
+            inGameUnit.transform.position = new Vector3(inGameUnit.transform.position.x + movementSpeed / 100, 0f, 0f);
+            yield return new WaitForSeconds(0.01f);//moveSpeed
+        }
     }
 
 
-    
+    IEnumerator Move2()
+    {
+
+        while (true)
+        {
+            Debug.Log("Move Code reached");
+            //left
+            //transform.position = new Vector3(-1f, 0f, 0f);
+
+
+            //rb.MovePosition(new Vector2(inGameUnit.transform.position.x + movementSpeed * Time.deltaTime, 0f));
+            rb.velocity = new Vector2(movementSpeed * Time.fixedDeltaTime, 0f);
+
+            //inGameUnit.transform.Translate(movementSpeed * Time.deltaTime, 0f, 0f);
+
+            //inGameUnit.transform.position = new Vector3(inGameUnit.transform.position.x + movementSpeed / 100, 0f, 0f);
+            yield return new WaitForSeconds(1f);//moveSpeed
+        }
+    }
+
+
+
 
 
 
