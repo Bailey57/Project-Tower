@@ -33,6 +33,8 @@ public class Unit : MonoBehaviour
 
     [SerializeField] public BoxCollider2D collider;
 
+    [SerializeField] public Animator animator;
+
 
     [SerializeField] public float health;
     [SerializeField] public float maxHealth;
@@ -83,14 +85,14 @@ public class Unit : MonoBehaviour
                 {
                     (attackTarget.gameObject.GetComponent("Tower") as Tower).health -= damagePerHit;
 
-
+                    animator.SetInteger("State", 2);
                 }
                 else if ((attackTarget.gameObject.GetComponent("Unit") as Unit) != null)
                 {
 
                     (attackTarget.gameObject.GetComponent("Unit") as Unit).health -= damagePerHit;
 
-
+                    animator.SetInteger("State", 2);
                 }
 
 
@@ -213,6 +215,8 @@ public class Unit : MonoBehaviour
 
 
                     //rb.MovePosition(new Vector2(inGameUnit.transform.position.x + movementSpeed * Time.deltaTime, 0f));
+    
+                    animator.SetInteger("State", 1);
                     rb.velocity = new Vector2(movementSpeed * Time.fixedDeltaTime, 0f);
 
                     //inGameUnit.transform.Translate(movementSpeed * Time.deltaTime, 0f, 0f);
@@ -223,6 +227,7 @@ public class Unit : MonoBehaviour
                 }
                 else 
                 {
+                    animator.SetInteger("State", 1);
                     rb.velocity = new Vector2(-1 * movementSpeed * Time.fixedDeltaTime, 0f);
 
                 }
