@@ -69,6 +69,17 @@ public class Unit : MonoBehaviour
     {
         if (health <= 0)
         {
+            if (factionNum == 0)
+            {
+                GameObject deadTank = (GameObject)Instantiate(Resources.Load("Prefabs/tankUnitTst1_ded"));
+                deadTank.transform.position = inGameUnit.transform.position;
+            }
+            else if (factionNum == 1) 
+            {
+                GameObject deadTank = (GameObject)Instantiate(Resources.Load("Prefabs/tankUnitTst1_enemy1_ded_"));
+                deadTank.transform.position = inGameUnit.transform.position;
+
+            }
             inGameUnit.SetActive(false);
             Destroy(inGameUnit);
 
