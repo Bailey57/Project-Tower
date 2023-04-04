@@ -35,6 +35,8 @@ public class Unit : MonoBehaviour
 
     [SerializeField] public Animator animator;
 
+    [SerializeField] public SFXPlayer sfxPlayer;
+
 
     [SerializeField] public float health;
     [SerializeField] public float maxHealth;
@@ -85,21 +87,26 @@ public class Unit : MonoBehaviour
                 {
                     (attackTarget.gameObject.GetComponent("Tower") as Tower).health -= damagePerHit;
 
+                    Debug.Log("attackTarget: tower");
+                    sfxPlayer.PlayT72Firing();
                     animator.SetInteger("State", 2);
                 }
                 else if ((attackTarget.gameObject.GetComponent("Unit") as Unit) != null)
                 {
-
+                    Debug.Log("attackTarget: tank");
                     (attackTarget.gameObject.GetComponent("Unit") as Unit).health -= damagePerHit;
-
+                    sfxPlayer.PlayT72Firing();
                     animator.SetInteger("State", 2);
                 }
 
+                
 
             }
 
 
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(5f);
+            //Debug.Log("Set State to 0");
+            //animator.SetInteger("State", 0);
 
         }
 
@@ -109,18 +116,19 @@ public class Unit : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
 
-        Debug.Log("Trigger entered");
+        //Debug.Log("Trigger entered");
 
 
         if (attackTarget == null) 
         {
-            Debug.Log("Passed 1");
+            animator.SetInteger("State", 0);
+            //Debug.Log("Passed 1");
             if ((other.gameObject.GetComponent("Tower") as Tower) != null)
             {
-                Debug.Log("Passed 2");
+                //Debug.Log("Passed 2");
                 if ((other.gameObject.GetComponent("Tower") as Tower).faction != factionNum) 
                 {
-                    Debug.Log("Passed 3");
+                    //Debug.Log("Passed 3");
                     attackTarget = other.gameObject;
 
                 }

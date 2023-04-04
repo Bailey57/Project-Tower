@@ -15,7 +15,7 @@ public class UnitSpawner : MonoBehaviour
 
         if ((tower.gameObject.GetComponent("Tower") as Tower).faction == 0)
         {
-            SpawnOneFriendlyUnit();
+            //SpawnOneFriendlyUnit();
 
 
         }
